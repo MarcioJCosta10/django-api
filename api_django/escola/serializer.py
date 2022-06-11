@@ -1,10 +1,9 @@
-
 from dataclasses import fields
 from rest_framework import serializers
 from escola.models import Aluno, Curso, Matricula
 
 
-# Qual é modelos e quais campos utilizado em cada serializer
+# Qual é modelos e quais campos utilizado em cada serializer, informações e campos que aparecem na api
 class AlunoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aluno
@@ -23,6 +22,8 @@ class MatriculaSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ListaMatriculasAlunoSerializer(serializers.ModelSerializer):
+  
+  
   curso = serializers.ReadOnlyField(source='curso.descricao')
   periodo = serializers.SerializerMethodField()
   class Meta:
@@ -32,5 +33,13 @@ class ListaMatriculasAlunoSerializer(serializers.ModelSerializer):
 # obj é o objeto 
   def get_periodo(self, obj):
     return obj.get_periodo_display()
+  
+class ListaAlunosMatriculadosSerializer(serializers.ModelSerializer):
+  aluno_nome = serializers.ReadOnlyField(source='aluno.nome')
+  class Meta:
+    model = Matricula
+    fields = ['aluno_nome']
+  
+    
    
   

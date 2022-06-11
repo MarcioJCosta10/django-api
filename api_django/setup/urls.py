@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 from django.urls import path, include
-from escola.views import AlunosViewSet, CursosViewSet, ListaMatriculasAluno, MatriculaViewSet
+from escola.views import AlunosViewSet, CursosViewSet, ListaMatriculasAluno, MatriculaViewSet, ListaAlunosMatriculados
 from rest_framework import routers
 
 # Configure viewsets
@@ -14,5 +14,6 @@ router.register('matriculas', MatriculaViewSet, basename='Matriculas')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('aluno/<int:pk>/matriculas/', ListaMatriculasAluno.as_view())
+    path('aluno/<int:pk>/matriculas/', ListaMatriculasAluno.as_view()),
+    path('curso/<int:pk>/matriculas/', ListaAlunosMatriculados.as_view()),
 ]
